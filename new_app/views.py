@@ -1,5 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from rest_framework.pagination import PageNumberPagination
 
 from new_app.models import Library
@@ -10,5 +10,6 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = LibrarySerializer
     queryset = Library.objects.all()
     pagination_class = PageNumberPagination
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [filters.SearchFilter,DjangoFilterBackend]
+    search_fields = ['Title','Author']
     filterset_fields = ['Category','Is_available']
